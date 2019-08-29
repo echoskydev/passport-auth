@@ -9,8 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/echoskydev/passport-auth.git",
-    "web": "node index.js"
+    "url": "git+https://github.com/echoskydev/passport-auth.git"
   },
   "keywords": [
     "authentication",
