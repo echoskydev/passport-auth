@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy;
 
-ÎÎÎ
+
 // Passport session setup.
 passport.serializeUser(function (user, done) {
     done(null, user);
