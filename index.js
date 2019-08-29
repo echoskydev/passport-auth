@@ -41,12 +41,13 @@ app.get('/auth/facebook/callback',
         failureRedirect: '/login'
     }));
 app.get('/auth/facebook',
-    passport.authenticate('facebook', { scope: ['read_stream', 'publish_actions'] })
+    passport.authenticate('facebook', { scope: ['email', 'default'] })
 );
 
-
-
-
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
