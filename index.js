@@ -1,17 +1,14 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+    , passport = require('passport')
+    , FacebookStrategy = require('passport-facebook').Strategy
+    , session = require('express-session')
+    , cookieParser = require('cookie-parser')
+    , bodyParser = require('body-parser')
+    , config = require('./configuration/config')
+    , app = express();
+
 const PORT = process.env.PORT || 5000
 
-app.get('/', (req, res) => {
-    res.send('Hi, Passport');
-});
-
-
-var passport = require('passport')
-    , FacebookStrategy = require('passport-facebook').Strategy;
-
-
-// Passport session setup.
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
@@ -19,11 +16,10 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (obj, done) {
     done(null, obj);
 });
-
 passport.use(new FacebookStrategy({
-    clientID: '901760419844459',
-    clientSecret: '7e9dc26782f560375256038ca1e0de7f',
-    callbackURL: "https://passport-authen.herokuapp.com/auth/facebook/callback"
+    clientID: config.facebook_api_key,
+    clientSecret: config.facebook_api_secret,
+    callbackURL: config.callback_url
 }, function (accessToken, refreshToken, profile, done) {
     User.findOrCreate({
         facebookId: profile.id
@@ -34,16 +30,31 @@ passport.use(new FacebookStrategy({
 }
 ));
 
-app.get('/auth/facebook', passport.authenticate('facebook'));
+
+
+
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: 'keyboard cat', key: 'sid' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/public'));
+app.get('/', function (req, res) {
+    res.render('index', { user: req.user });
+    // res.send('Hi, Passport');
+});
+
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
         successRedirect: '/',
         failureRedirect: '/login'
-    }));
-app.get('/auth/facebook',
-    passport.authenticate('facebook', { scope: ['email', 'default'] })
-);
-
+    }), function (req, res) {
+        res.redirect('/');
+    });
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
