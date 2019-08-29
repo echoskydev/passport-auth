@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
     res.send('Hi, Passport');
@@ -49,5 +49,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log("application is listening on:", port, app.settings.env); 
+    console.log("application is listening on:", port, app.settings.env);
 });
