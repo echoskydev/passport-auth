@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
     res.send('Hi, Passport');
@@ -47,6 +48,6 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(2222, () => {
-    console.log(`Server started on 2222`);
+app.listen(port, () => {
+    console.log("application is listening on:", port);
 });
