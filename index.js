@@ -49,5 +49,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log("application is listening on:", this.address().port, app.settings.env);
+    console.log("application is listening on:", port, app.settings.env); 
 });
