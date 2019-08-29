@@ -2,8 +2,12 @@
   "name": "passport-auth",
   "version": "1.0.0",
   "description": "Passport Authen",
+  "engines": {
+    "node": "10.x"
+  },
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json"
   },
@@ -26,9 +30,5 @@
     "nodemon": "^1.19.1",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0"
-  },
-  "engines": {
-    "node": "0.10.41",
-    "npm": "1.4.29"
   }
 }
