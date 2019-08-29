@@ -23,7 +23,7 @@ passport.deserializeUser(function (obj, done) {
 passport.use(new FacebookStrategy({
     clientID: '901760419844459',
     clientSecret: '7e9dc26782f560375256038ca1e0de7f',
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "https://passport-authen.herokuapp.com/auth/facebook/callback"
 }, function (accessToken, refreshToken, profile, done) {
     User.findOrCreate({
         facebookId: profile.id
