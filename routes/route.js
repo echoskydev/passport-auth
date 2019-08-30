@@ -7,7 +7,7 @@ const config = {
     "facebook": {
         "app_id": "901760419844459",
         "app_secret": "7e9dc26782f560375256038ca1e0de7f",
-        "callback": "https://passport-authen.herokurouter.com/return"
+        "callback": "https://passport-authen.herokuapp.com/return"
     },
     "twitter": {
         "consumer_key": "akeyishere",
@@ -44,6 +44,11 @@ router.use(passportFacebook.session());
 
 //Facebook
 // Define routes.
+router.get('/',
+    function (req, res) {
+        res.render('home', { user: req.user });
+    });
+
 router.get('/login',
     function (req, res) {
         res.render('login');
