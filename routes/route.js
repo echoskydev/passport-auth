@@ -26,7 +26,24 @@ const FacebookStrategy = new Strategy({
 
 passportFacebook.use(FacebookStrategy);
 
+
+passportFacebook.serializeUser(function (user, cb) {
+    cb(null, user);
+});
+
+passportFacebook.deserializeUser(function (obj, cb) {
+    cb(null, obj);
+});
+
+
 const router = express.Router()
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+router.use(passportFacebook.initialize());
+router.use(passportFacebook.session());
+
+
 
 //Facebook
 // const FacebookController = require('../controllers/facebook.controller');

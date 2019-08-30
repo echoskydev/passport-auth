@@ -31,4 +31,19 @@ const FacebookStrategy = new Strategy({
 
 passportFacebook.use(FacebookStrategy);
 
+
+passportFacebook.serializeUser(function (user, cb) {
+    cb(null, user);
+});
+
+passportFacebook.deserializeUser(function (obj, cb) {
+    cb(null, obj);
+});
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passportFacebook.initialize());
+app.use(passportFacebook.session());
+
+
 module.exports = passportFacebook;
