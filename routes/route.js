@@ -44,22 +44,22 @@ router.use(passportFacebook.session());
 
 //Facebook
 // Define routes.
-router.get('/v1/login',
+router.get('/login',
     function (req, res) {
         res.render('login');
     });
 
-router.get('/v1/auth/facebook',
+router.get('/login/facebook',
     passportFacebook.authenticate('facebook'));
 
-router.get('/v1/callback/facebook',
-    passportFacebook.authenticate('facebook', { failureRedirect: '/v1/login' }),
+router.get('/return',
+    passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
     function (req, res) {
         res.redirect('/');
     }
 );
 
-router.get('/v1/profile/facebook',
+router.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
         res.render('profile', { user: req.user });
