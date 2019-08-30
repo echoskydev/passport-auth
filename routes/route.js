@@ -7,7 +7,7 @@ const config = {
     "facebook": {
         "app_id": "901760419844459",
         "app_secret": "7e9dc26782f560375256038ca1e0de7f",
-        "callback": "https://passport-authen.herokurouter.com/api/v1/callback/facebook"
+        "callback": "https://passport-authen.herokurouter.com/return"
     },
     "twitter": {
         "consumer_key": "akeyishere",
