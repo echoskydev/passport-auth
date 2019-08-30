@@ -1,10 +1,22 @@
-module.exports = {
-    "facebook_api_key": "901760419844459",
-    "facebook_api_secret": "7e9dc26782f560375256038ca1e0de7f",
-    "callback_url": "https://passport-authen.herokuapp.com/return",
-    "use_database": false,
-    "host": "localhost",
-    "username": "root",
-    "password": "",
-    "database": "Database Name"
+
+module.exports = function (req, res, next) {
+
+    // Send data json & status
+    res.sendApi = function (data, status = 200) {
+        res.setHeader('content-type', 'application/json');
+        res.status(status);
+        res.json(data);
+    }
+
+    /**
+     * Send data response
+     * @param {Promise} promise
+     */
+    res.sendAsyncApi = function (promise) {
+        promise
+            .then(item => res.sendApi(item))
+            .catch(error => res.sendApi(error, 400));
+    }
+
+    next();
 }
