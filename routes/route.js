@@ -43,6 +43,16 @@ passport.use(new FacebookStrategy({
     return cb(null, profile);
 }));
 
+const TwitterStrategy = require('passport-twitter').Strategy;
+passport.use(new TwitterStrategy({
+    consumerKey: config.twitter.consumer_key,
+    consumerSecret: config.twitter.consumer_secret,
+    callbackURL: config.facebook.callback
+}, function (accessToken, refreshToken, profile, cb) {
+    return cb(null, profile);
+}));
+
+
 //Facebook
 // Define routes.
 router.get('/',
@@ -60,6 +70,11 @@ router.get('/login',
         res.render('login');
     });
 
+// router.post('/login', passport.authenticate(['twitter', 'facebook'], {
+//     successReturnToOrRedirect: '/',
+//     failureRedirect: '/login'
+// }));
+
 router.get('/auth/facebook',
     passport.authenticate('facebook'));
 
@@ -70,7 +85,7 @@ router.get('/auth/facebook/callback',
     }
 );
 
-router.get('/profile/facebook',
+router.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
         res.json(req.user);
@@ -78,17 +93,12 @@ router.get('/profile/facebook',
     });
 
 
-
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 //Twitter
-const TwitterStrategy = require('passport-twitter').Strategy;
-passport.use(new TwitterStrategy({
-    consumerKey: config.twitter.consumer_key,
-    consumerSecret: config.twitter.consumer_secret,
-    callbackURL: config.facebook.callback
-}, function (accessToken, refreshToken, profile, cb) {
-    return cb(null, profile);
-}));
 
 router.get('/auth/twitter',
     passport.authenticate('twitter'));
