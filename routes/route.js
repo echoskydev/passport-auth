@@ -46,7 +46,8 @@ router.use(passportFacebook.session());
 // Define routes.
 router.get('/',
     function (req, res) {
-        res.render('home', { user: req.user });
+        res.json(req.user);
+        // res.render('home', { user: req.user });
     });
 
 router.get('/login',
@@ -58,7 +59,7 @@ router.get('/auth/facebook',
     passportFacebook.authenticate('facebook'));
 
 router.get('/callback/facebook',
-    passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
+    passportFacebook.authenticate('facebook', { failureRedirect: '/auth/facebook' }),
     function (req, res) {
         res.redirect('/');
     }
