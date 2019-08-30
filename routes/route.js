@@ -67,7 +67,13 @@ router.get('/return',
 router.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
-        res.render('profile', { user: req.user });
+        res.json(req.user);
+        // res.render('profile', { user: req.user });
     });
+
+
+
+
+
 
 module.exports = router
