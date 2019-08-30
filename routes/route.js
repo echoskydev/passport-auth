@@ -7,7 +7,7 @@ const config = {
     "facebook": {
         "app_id": "901760419844459",
         "app_secret": "7e9dc26782f560375256038ca1e0de7f",
-        "callback": "https://passport-authen.herokuapp.com/return"
+        "callback": "https://passport-authen.herokuapp.com/callback/facebook"
     },
     "twitter": {
         "consumer_key": "akeyishere",
@@ -54,25 +54,22 @@ router.get('/login',
         res.render('login');
     });
 
-router.get('/login/facebook',
+router.get('/auth/facebook',
     passportFacebook.authenticate('facebook'));
 
-router.get('/return',
+router.get('/callback/facebook',
     passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
     function (req, res) {
         res.redirect('/');
     }
 );
 
-router.get('/profile',
+router.get('/profile/facebook',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
         res.json(req.user);
         // res.render('profile', { user: req.user });
     });
-
-
-
 
 
 
