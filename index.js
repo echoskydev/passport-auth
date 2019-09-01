@@ -1,5 +1,6 @@
 const express = require('express');
-const routes = require('./routes/route')
+const routes = require('./routes/route');
+const routeTwitter = require('./routes/twitter.route');
 const app = express();
 const PORT = process.env.PORT || 5000
 
@@ -21,7 +22,7 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 
 
 app.use(require('./configuration/config'));
-app.use('/', routes)
+app.use('/', routeTwitter)
 
 
 app.listen(PORT, () => {
