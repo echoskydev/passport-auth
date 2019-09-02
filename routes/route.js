@@ -3,6 +3,7 @@ const router = express.Router()
 
 const passportTwitter = require('../config/twitter');
 const passportFacebook = require('../config/facebook');
+const passportInstagram = require('../config/instagram');
 
 // Define routes.
 router.get('/',
@@ -54,6 +55,19 @@ router.get('/auth/facebook',
 
 router.get('/auth/facebook/callback',
     passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+        // res.json(req.user);
+    });
+
+
+//Instagram
+router.get('/auth/instagram',
+    passportInstagram.authenticate('instagram'));
+
+router.get('/auth/instagram/callback',
+    passportInstagram.authenticate('instagram', { failureRedirect: '/login' }),
     function (req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
