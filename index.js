@@ -1,9 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 const routes = require('./routes/route');
-const routeFacebook = require('./routes/facebook.route');
-const routeTwitter = require('./routes/twitter.route');
-const routeInstagram = require('./routes/instagram.route');
 const app = express();
 const PORT = process.env.PORT || 5000
 
