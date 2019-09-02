@@ -62,4 +62,32 @@ router.get('/auth/facebook/callback',
     }
 );
 
+
+
+router.get('/',
+    function (req, res) {
+        if (!req.user) {
+            res.render('home', { user: req.user });
+        } else {
+            res.json(req.user);
+        }
+    });
+
+router.get('/login',
+    function (req, res) {
+        res.render('login');
+    });
+
+router.get('/profile',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res) {
+        res.json(req.user);
+        // res.render('profile', { user: req.user });
+    });
+
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 module.exports = router

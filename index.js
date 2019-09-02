@@ -19,32 +19,6 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 // Configure view engine to render EJS templates.
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.get('/',
-    function (req, res) {
-        if (!req.user) {
-            res.render('home', { user: req.user });
-        } else {
-            res.json(req.user);
-        }
-    });
-
-app.get('/login',
-    function (req, res) {
-        res.render('login');
-    });
-
-app.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res) {
-        res.json(req.user);
-        // res.render('profile', { user: req.user });
-    });
-
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-});
-
 
 
 app.use(require('./configuration/config'));
