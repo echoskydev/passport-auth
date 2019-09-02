@@ -39,28 +39,27 @@ passport.deserializeUser(function (obj, cb) {
 
 
 
-
-const TwitterStrategy = require('passport-twitter').Strategy;
-passport.use(new TwitterStrategy({
-    consumerKey: config.twitter.app_id,
-    consumerSecret: config.twitter.app_secret,
-    callbackURL: config.twitter.callback
+const FacebookStrategy = require('passport-facebook').Strategy;
+passport.use(new FacebookStrategy({
+    clientID: config.facebook.app_id,
+    clientSecret: config.facebook.app_secret,
+    callbackURL: config.facebook.callback
 }, function (accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
 }));
 
-
-
+//Facebook
 // Define routes.
-router.get('/auth/twitter',
-    passport.authenticate('twitter'));
 
-router.get('/auth/twitter/callback',
-    passport.authenticate('twitter', { failureRedirect: '/login' }),
+
+router.get('/auth/facebook',
+    passport.authenticate('facebook'));
+
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
     function (req, res) {
         res.redirect('/');
     }
 );
-
 
 module.exports = router

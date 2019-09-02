@@ -23,7 +23,6 @@ const config = {
 
 
 
-
 // Initialize Passport and restore authentication state, if any, from the
 // session.
 router.use(passport.initialize());
@@ -40,11 +39,11 @@ passport.deserializeUser(function (obj, cb) {
 
 
 
-const TwitterStrategy = require('passport-twitter').Strategy;
-passport.use(new TwitterStrategy({
-    consumerKey: config.twitter.app_id,
-    consumerSecret: config.twitter.app_secret,
-    callbackURL: config.twitter.callback
+const InstagramStrategy = require('passport-instagram').Strategy;
+passport.use(new InstagramStrategy({
+    clientID: config.instagram.app_id,
+    clientSecret: config.instagram.app_secret,
+    callbackURL: config.instagram.callback
 }, function (accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
 }));
@@ -52,15 +51,14 @@ passport.use(new TwitterStrategy({
 
 
 // Define routes.
-router.get('/auth/twitter',
-    passport.authenticate('twitter'));
+router.get('/auth/instagram',
+    passport.authenticate('instagram'));
 
-router.get('/auth/twitter/callback',
-    passport.authenticate('twitter', { failureRedirect: '/login' }),
+router.get('/auth/instagram/callback',
+    passport.authenticate('instagram', { failureRedirect: '/login' }),
     function (req, res) {
         res.redirect('/');
     }
 );
-
 
 module.exports = router
