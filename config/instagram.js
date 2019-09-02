@@ -4,9 +4,9 @@ const configAuth = require('./auth');
 const init = require('./init');
 
 passport.use(new InstagramStrategy({
-    clientID: configAuth.facebook.app_id,
-    clientSecret: configAuth.facebook.app_secret,
-    callbackURL: configAuth.facebook.callback
+    clientID: configAuth.instagram.app_id,
+    clientSecret: configAuth.instagram.app_secret,
+    callbackURL: configAuth.instagram.callback
 }, function (accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
 }));
