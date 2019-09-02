@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-var passportTwitter = require('../config/twitter');
-
+const passportTwitter = require('../config/twitter');
+const passportFacebook = require('../config/facebook');
 
 // Define routes.
 router.get('/',
@@ -37,10 +37,23 @@ router.get('/logout', function (req, res) {
 
 //Twitter
 router.get('/auth/twitter',
-    passportTwitter.authenticate('twitter'));
+    passportFacebook.authenticate('twitter'));
 
 router.get('/auth/twitter/callback',
     passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+        // res.json(req.user);
+    });
+
+
+//Facebook
+router.get('/auth/facebook',
+    passportFacebook.authenticate('facebook'));
+
+router.get('/auth/facebook/callback',
+    passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
     function (req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
