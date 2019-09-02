@@ -25,8 +25,6 @@ const config = {
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
-router.use(passport.initialize());
-router.use(passport.session());
 passport.serializeUser(function (user, cb) {
     cb(null, user);
 });
